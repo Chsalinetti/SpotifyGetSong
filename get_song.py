@@ -2,9 +2,8 @@ from pprint import pprint
 import requests
 import time
 
-SPOTIFY_GET_CURRENT_TRACK_URL = 'https://api.spotify.com/v1/mktnd699x5xqklxc1c2tvx1bi/player'
-SPOTIFY_ACCESS_TOKEN = 'BQC_7eezCE_C8mi9OyNinKB2k3l9HCvWM2odN_wwvlRyA7shDOTVCvsfJcFrubTx54U-0ywAsaUBXa-W-mLAyQETGZ38KXsSMolJkAYVKhXnpxhO8V4x22509eFG6cSfeIuuT6TRTP9m_gT0vRtLVA2H5I2zq0SSCd7VvYqhzvlFqXPutl68npq_BNRO4nzR88HiWNuTNzW4SKXuGbvgTSYYvU9dygZxWTuT34mCZFWXMpGHrELjnwXfk8AKtibOkquA889CME1itm2-P-2Xs9xu0HAtf-QIIhLt2s67BxRw'
-
+SPOTIFY_GET_CURRENT_TRACK_URL = 'https://api.spotify.com/v1/me/player/currently-playing'
+SPOTIFY_ACCESS_TOKEN = 'BQAmk3Qwz0uFUI2OkiqbfeW-pZveBRElfFKsr3mGBS2xjwQ2-M8-at34_ojzVkE_ChB3-SGTXsdZIprqtkiW9nyS2dWE9LHXxqp77cBnqqJFGiROcxJQOZRHHfpPz_ylwcORdIi5lG7IWNZDjM3fmC7uzgqXOZu0Mihu6eMjRLGEQeT3mlltme8wfhZQu5lqTFLrK2foA8Kos46JIVQ77Oqz-hAHC1Tg-S3W6fAi2Z5vm_3SZFT6Vd2-wgWBXWmEN7pVeX9hyUIBhBtF1-Ae6QL87k3l7x38i459Ndva98NB'
 def get_current_track(access_token):
     response = requests.get(
         SPOTIFY_GET_CURRENT_TRACK_URL,
@@ -14,33 +13,16 @@ def get_current_track(access_token):
     )
     resp_json = response.json()
 
-    track_id = resp_json['item']['id']
     track_name = resp_json['item']['name']
-    artists = resp_json['item']['artists']
-    artists_names = ', '.join(
-        artists['name'] for artist in artists
-    )
-    link = resp_json['item']['external_urls']['spotify']
+    artists = resp_json['item']['artists'][0]['name']
 
-
-    current_track_info = {
-        "id" : track_id,
-        "name": track_name,
-        "artists" : artists_names,
-        "link" : link
-    }
-
-    return current_track_info
+    return track_name + " - " + artists
 
 def main():
     while True:
-        current_track_info = get_current_track(
-            SPOTIFY_ACCESS_TOKEN
-        )
-
+        current_track_info = get_current_track(SPOTIFY_ACCESS_TOKEN)
         pprint(current_track_info, indent = 4)
-
-        time.sleep(2)
+        time.sleep(10)
 
 if __name__ == '__main__':
     main()
