@@ -1,6 +1,7 @@
 from info import *
-from get_credentials import *
-from get_song import *
+from get_credentials import get_credentials
+from get_song import get_current_track
+from get_song import loop_current_track
 
 def play_current():
     test = input("!!!Enter test for testing!!! ")
