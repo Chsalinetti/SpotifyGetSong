@@ -1,0 +1,4 @@
+SPOTIFY_GET_CURRENT_TRACK_URL = 'https://api.spotify.com/v1/me/player/currently-playing'
+#SPOTIFY_GET_CURRENT_TRACK_URL = 'https://api.spotify.com/v1/mktnd699x5xqklxc1c2tvx1bi/player/currently-playing'
+SPOTIFY_ACCESS_TOKEN = 'BQCMXFpFqyrQuox_16tYSYpWtVjSGXg5E3qW_qkbVVBlzku1xlueWwPh18myRHMg4AjYRd_ImAd0bE6qTcSIg867Y2Ett5WlB7oxq7WnCFbTTmOs263peaX6mN5bfJXvuexFFJkB6GroOgHF3IXIADkofWwgamHdlbwsU5svc0rBRyRQsWmuXw88kv-T-dsCCc5O04b79DvQ2DgwajJ-sBQ1hbfbYuYgDornZbOMZfXn2u7SdMAx85xT9HNVxCxe4QbB8yxcsecWyIPXRjPalgTlecggavWhi3N6RKOEQ0dK'
+
