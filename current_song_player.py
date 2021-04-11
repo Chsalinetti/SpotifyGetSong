@@ -3,8 +3,8 @@ from get_song import get_current_track
 from get_song import loop_current_track
 
 def play_current():
-    access_token, url = get_credentials()  
-    loop_current_track(access_token, url)
+    access_token, url, refresh_token = get_credentials()  
+    loop_current_track(access_token, url, refresh_token)
 
 def main():
     play_current()

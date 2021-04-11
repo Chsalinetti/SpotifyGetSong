@@ -1,6 +1,7 @@
 import requests
 import time
 import json
+from client_id import *
 
 def get_current_track(access_token, url):
     response = requests.get(
@@ -19,15 +20,34 @@ def get_current_track(access_token, url):
 
     return "\n" + track_name + "\n" + artists + "\n[" + album + "]"
 
-def loop_current_track(access_token, url):
-    while True:
-        current_track_info = get_current_track(access_token, url)
-        if (current_track_info == "invalid token!"):
-            print("Error! invalid user or token!")
+def song_checker(current_track_info, access_token, url):
+    t = 0
+    while (True):
+        t += 5
+        if (current_track_info != get_current_track(access_token, url)):
+            time.sleep(5)
             break
-        print(current_track_info)
-        while True:
-            if (current_track_info != get_current_track(access_token, url)):
+        else:
+            time.sleep(5)
+    return t
+
+def loop_current_track(access_token, url, refresh_token):
+    while True:
+        t = 0
+        while (t < 1000):
+            current_track_info = get_current_track(access_token, url)
+            if (current_track_info == "invalid token!"):
+                print("Error! invalid user or token!")
                 break
-            else:
-                time.sleep(5)
+            print(current_track_info)
+            t_inc = song_checker(current_track_info, access_token, url)
+            t += t_inc
+            
+        #refresh token
+        request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
+        response = requests.post(
+            url='https://accounts.spotify.com/api/token',
+            data = request_body_params
+        )
+        resp_json = response.json()
+        access_token = resp_json['access_token']

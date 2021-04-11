@@ -20,6 +20,6 @@ def get_credentials():
     access_token = resp_json['access_token']
     expires_in = resp_json['expires_in']
     refresh_token= resp_json['refresh_token']
-    
+
     url = 'https://api.spotify.com/v1/me/player/currently-playing'
-    return access_token, url
+    return access_token, url, refresh_token
