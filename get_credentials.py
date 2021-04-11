@@ -11,13 +11,14 @@ def get_credentials():
     tokens = cred_url.split('=')
     code = tokens[1]
     
-    request_body_params = {'grant_type':'authorization_code', 'redirect_uri' : 'https://api.spotify.com/v1/me/player/currently-playing' , 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
-
+    request_body_params = {'grant_type':'authorization_code', 'code' : code, 'redirect_uri' : 'https://api.spotify.com/v1/me/player/currently-playing' , 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
+    #not working, error 400 <
     response = requests.post(
-        'https://accounts.spotify.com/api/token',
+        url='https://accounts.spotify.com/api/token',
         data = request_body_params
     )
     print(response)
+    #>
 
 
 
