@@ -24,7 +24,7 @@ def song_checker(current_track_info, access_token, url):
     t = 0
     while (True):
         t += 5
-        if (current_track_info != get_current_track(access_token, url)):
+        if (current_track_info != get_current_track(access_token, url) or t > 3400):
             time.sleep(5)
             break
         else:
