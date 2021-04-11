@@ -11,7 +11,11 @@ def get_credentials():
     tokens = cred_url.split('=')
     code = tokens[1]
     
-    
+    response = requests.get(
+        'https://accounts.spotify.com/api/token',
+        data=[('grant_type','authorization_code'), ('redirect_uri', 'https://api.spotify.com/v1/me/player/currently-playing'), ('client_id',CLIENT_ID), ('client_secret',CLIENT_SECRET)]
+    )
+    print(response)
 
 
 
