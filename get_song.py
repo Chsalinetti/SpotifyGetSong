@@ -23,12 +23,12 @@ def get_current_track(access_token, url):
 def song_checker(current_track_info, access_token, url):
     t = 0
     while (True):
-        t += 5
+        t += 1
         if (current_track_info != get_current_track(access_token, url) or t > 3400):
-            time.sleep(5)
+            time.sleep(1)
             break
         else:
-            time.sleep(5)
+            time.sleep(1)
     return t
 
 def loop_current_track(access_token, url, refresh_token):
