@@ -8,8 +8,10 @@ from get_credentials import get_credentials
 from get_song import get_current_track
 from get_song import loop_current_track
 import requests
+from client_id import *
+import json
 
-def display_update(root, access_token, url, refresh_token, counter):
+def display_update(root,image_frame, title_button, artists_button, album_button, access_token, url, refresh_token, counter):
     if (counter > 3000):
         request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
         response = requests.post(
@@ -18,11 +20,25 @@ def display_update(root, access_token, url, refresh_token, counter):
         )
         resp_json = response.json()
         access_token = resp_json['access_token']
-        
     track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
-
-    root.after(1000, display_update(root, access_token, url, refresh_token, counter + 1))
-
+    #image
+    image_bytes = urlopen(artwork_url).read()
+    data_stream = io.BytesIO(image_bytes)
+    pil_image = Image.open(data_stream)
+    pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
+    tk_image = ImageTk.PhotoImage(pil_image)
+    root.image_frame['image'] = tk_image
+    #title
+    if (len(track_name) > 30):
+        track_name = track_name[:30] + "..."
+    root.title_button['text'] = track_name
+    #artists
+    root.artists_button['text'] = artists
+    #album
+    root.album_button['text'] = album + " - " + year
+    #counter
+    counter += 1
+    root.after(1000, display_update(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, counter))
 
 def display_song():
     access_token, url, refresh_token = get_credentials()
@@ -67,7 +83,7 @@ def display_song():
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
 
-    root.after(1000, display_update(access_token, url, refresh_token, 0))
+    root.after(1000, display_update(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, 0))
     root.mainloop()
 
 
