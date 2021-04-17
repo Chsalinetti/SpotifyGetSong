@@ -14,7 +14,8 @@ from threading import Thread
 
 def display_update(root,image_frame, title_button, artists_button, album_button, access_token, url, refresh_token, counter):
     while (True):
-        if (counter > 3000):
+        if (counter > 1500):
+            print("Refreshing Token...")
             request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
             response = requests.post(
                 url='https://accounts.spotify.com/api/token',
@@ -23,6 +24,7 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
             resp_json = response.json()
             access_token = resp_json['access_token']
             counter = 0;
+            print("Token Refreshed!")
         track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
 
         #image

@@ -10,8 +10,8 @@ def get_current_track(access_token, url):
             "Authorization" : f"Bearer {access_token}"
         }
     )
-    resp_json = response.json()
     try:
+        resp_json = response.json()
         track_name = resp_json['item']['name']
         artists = resp_json['item']['artists'][0]['name']
         album = resp_json['item']['album']['name']
@@ -20,7 +20,12 @@ def get_current_track(access_token, url):
         year = date[0]
         artwork = resp_json['item']['album']['images'][0]['url']
     except:
-        return "invalid token!"
+        print("Error Recieving Song Data!")
+        track_name = "No Song Playing"
+        artists = "No Current Artist"
+        album = "No Current Album"
+        year = "0000"
+        artwork = "https://static.wikia.nocookie.net/impracticaljokers/images/d/d2/Sal.png/revision/latest/scale-to-width-down/250?cb=20190604013345"
 
     return track_name, artists, album, year, artwork
 
