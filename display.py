@@ -10,6 +10,7 @@ from get_song import loop_current_track
 import requests
 from client_id import *
 import json
+from threading import Thread
 
 def display_update(root,image_frame, title_button, artists_button, album_button, access_token, url, refresh_token, counter):
     if (counter > 3000):
@@ -27,18 +28,18 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
     pil_image = Image.open(data_stream)
     pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
     tk_image = ImageTk.PhotoImage(pil_image)
-    root.image_frame['image'] = tk_image
+    image_frame['image'] = tk_image
     #title
     if (len(track_name) > 30):
         track_name = track_name[:30] + "..."
-    root.title_button['text'] = track_name
+    title_button['text'] = track_name
     #artists
-    root.artists_button['text'] = artists
+    artists_button['text'] = artists
     #album
-    root.album_button['text'] = album + " - " + year
+    album_button['text'] = album + " - " + year
     #counter
     counter += 1
-    root.after(1000, display_update(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, counter))
+    display_update(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, counter)
 
 def display_song():
     access_token, url, refresh_token = get_credentials()
@@ -83,7 +84,7 @@ def display_song():
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
 
-    root.after(1000, display_update(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, 0))
+    Thread(target=display_update, args=(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, 0)).start()
     root.mainloop()
 
 
