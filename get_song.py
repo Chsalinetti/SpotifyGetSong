@@ -15,6 +15,10 @@ def get_current_track(access_token, url):
         track_name = resp_json['item']['name']
         artists = resp_json['item']['artists'][0]['name']
         album = resp_json['item']['album']['name']
+        date = resp_json['item']['album']['release_date']
+        date = date.split("-")
+        year = date[0]
+        artwork = resp_json['item']['album']['images'][0]['url']
     except:
         return "invalid token!"
 
