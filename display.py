@@ -4,8 +4,30 @@ import tkinter as tk
 from urllib.request import urlopen
 import tkinter.font as font
 import time
+from get_credentials import get_credentials
+from get_song import get_current_track
+from get_song import loop_current_track
+import requests
 
-def display_song(track_name, artists, album, year, artwork_url):
+def display_update(root, access_token, url, refresh_token, counter):
+    if (counter > 3000):
+        request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
+        response = requests.post(
+            url='https://accounts.spotify.com/api/token',
+            data = request_body_params
+        )
+        resp_json = response.json()
+        access_token = resp_json['access_token']
+        
+    track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
+
+    root.after(1000, display_update(root, access_token, url, refresh_token, counter + 1))
+
+
+def display_song():
+    access_token, url, refresh_token = get_credentials()
+    track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
+
     root = tk.Tk()
     root.attributes("-fullscreen", True)
     root.configure(bg='black')
@@ -45,15 +67,12 @@ def display_song(track_name, artists, album, year, artwork_url):
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
 
+    root.after(1000, display_update(access_token, url, refresh_token, 0))
     root.mainloop()
 
 
 def main():
-    url = "https://i.scdn.co/image/ab67616d0000b2731b2a9188ac775e16998eb78d"
-    display_song("Wheel in the Sky", "Journey", "Infinity", "1978", url)
-    time.sleep(5)
-    url = "https://i.scdn.co/image/ab67616d0000b27398260c528e6eec9dd431c1d7"
-    display_song("Sunday Morning", "The Velvet Underground", "Nico", "1967", url)
+    display_song()
 
 
 if __name__ == '__main__':

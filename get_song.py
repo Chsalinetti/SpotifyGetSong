@@ -22,7 +22,7 @@ def get_current_track(access_token, url):
     except:
         return "invalid token!"
 
-    return "\n" + track_name + "\n" + artists + "\n[" + album + "]"
+    return track_name, artists, album, year, artwork
 
 def song_checker(current_track_info, access_token, url):
     t = 0
