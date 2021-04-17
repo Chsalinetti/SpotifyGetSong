@@ -17,18 +17,20 @@ def display_song(track_name, artists, album, year, artwork_url):
     image_frame = tk.Label(master=root, image = tk_image, height=450, width = 450, bg="black")
     image_frame.pack()
     #Song Title
-    title_font = font.Font(family='Helvetica', size=50, weight='bold')
-    title_button = tk.Button(master=root, text=track_name, bg='black', height=25, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    if (len(track_name) > 30):
+        track_name = track_name[:30] + "..."
+    title_font = font.Font(family='Segoe', size=40, weight='bold')
+    title_button = tk.Button(master=root, text=track_name, bg='black', height=0, activebackground='black', bd=-2, state='disabled', disabledforeground="white")
     title_button['font'] = title_font
     title_button.pack(fill=tk.X)
     #Artist
-    artists_font = font.Font(family='Helvetica', size=50, weight='bold')
-    artists_button = tk.Button(master=root, text=artists, bg='black', height=25, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    artists_font = font.Font(family='Segoe', size=30, weight='normal')
+    artists_button = tk.Button(master=root, text=artists, bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
     artists_button['font'] = artists_font
     artists_button.pack(fill=tk.X)
     #Album - Year
-    album_font = font.Font(family='Helvetica', size=50, weight='bold')
-    album_button = tk.Button(master=root, text=(album + " - " + year), bg='black', height=25, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    album_font = font.Font(family='Segoe', size=10, weight='normal')
+    album_button = tk.Button(master=root, text=(album + " - " + year), bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
 
