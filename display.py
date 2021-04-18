@@ -6,16 +6,20 @@ import tkinter.font as font
 import time
 from get_credentials import get_credentials
 from get_song import get_current_track
-from get_song import loop_current_track
 import requests
 from client_id import *
 import json
 from threading import Thread
-
+'''
+Updates the display with new song information
+'''
 def display_update(root,image_frame, title_button, artists_button, album_button, access_token, url, refresh_token, counter):
+    #loop forever
     while (True):
+        #run counter, after 1500 seconds token will refresh. Token expires after 3600 seconds.
         if (counter > 1500):
             print("Refreshing Token...")
+            #refresh tokens
             request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
             response = requests.post(
                 url='https://accounts.spotify.com/api/token',
@@ -25,6 +29,7 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
             access_token = resp_json['access_token']
             counter = 0;
             print("Token Refreshed!")
+        #get current track info
         track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
 
         #image
@@ -45,18 +50,22 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
             album_button['text'] = ""
         else:
             album_button['text'] = album + " - " + year
-        #counter
+        #increase counter
         time.sleep(1)
         counter += 1
-
+'''
+Display current song using Tkinter
+'''
 def display_song():
+    #get credentials
     access_token, url, refresh_token = get_credentials()
+    #get current song
     track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
-
+    #Initilize Tkinter
     root = tk.Tk()
     root.attributes("-fullscreen", True)
     root.configure(bg='black')
-    #top
+    #top border
     line_font = font.Font(family='Segoe', size=20, weight='normal')
     line_button = tk.Button(master=root, text=" ", bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
     line_button['font'] = line_font
@@ -91,14 +100,6 @@ def display_song():
     album_button = tk.Button(master=root, text=(album + " - " + year), bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
-
+    #create thread to update display constatly
     Thread(target=display_update, args=(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, 0)).start()
     root.mainloop()
-
-
-def main():
-    display_song()
-
-
-if __name__ == '__main__':
-    main()  
