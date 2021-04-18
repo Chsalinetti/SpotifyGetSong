@@ -20,11 +20,10 @@ def get_current_track(access_token, url):
         year = date[0]
         artwork = resp_json['item']['album']['images'][0]['url']
     except:
-        print("Error Recieving Song Data!")
         track_name = "No Song Playing"
-        artists = "No Current Artist"
-        album = "No Current Album"
-        year = "0000"
+        artists = ""
+        album = ""
+        year = ""
         artwork = "https://static.wikia.nocookie.net/impracticaljokers/images/d/d2/Sal.png/revision/latest/scale-to-width-down/250?cb=20190604013345"
 
     return track_name, artists, album, year, artwork

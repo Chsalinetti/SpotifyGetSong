@@ -40,8 +40,11 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
         title_button['text'] = track_name
         #artists
         artists_button['text'] = artists
-        #album
-        album_button['text'] = album + " - " + year
+        #albums
+        if (album == ""):
+            album_button['text'] = ""
+        else:
+            album_button['text'] = album + " - " + year
         #counter
         time.sleep(1)
         counter += 1
