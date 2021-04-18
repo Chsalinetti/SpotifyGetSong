@@ -29,27 +29,32 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
             access_token = resp_json['access_token']
             counter = 0;
             print("Token Refreshed!")
+        #get current info
+        current_track_name = title_button['text']
+        current_artist = artists_button['text']
+        current_album = album_button['text']
         #get current track info
         track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
-
-        #image
-        image_bytes = urlopen(artwork_url).read()
-        data_stream = io.BytesIO(image_bytes)
-        pil_image = Image.open(data_stream)
-        pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
-        tk_image = ImageTk.PhotoImage(pil_image)
-        image_frame['image'] = tk_image
-        #title
-        if (len(track_name) > 50):
-            track_name = track_name[:50] + "..."
-        title_button['text'] = track_name
-        #artists
-        artists_button['text'] = artists
-        #albums
-        if (album == ""):
-            album_button['text'] = ""
-        else:
-            album_button['text'] = album + " - " + year
+        #check to see if update is needed
+        if (current_track_name != track_name or current_artist != artists or current_album != (album + " - " + year)):
+            #image
+            image_bytes = urlopen(artwork_url).read()
+            data_stream = io.BytesIO(image_bytes)
+            pil_image = Image.open(data_stream)
+            pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
+            tk_image = ImageTk.PhotoImage(pil_image)
+            image_frame['image'] = tk_image
+            #title
+            if (len(track_name) > 40):
+                track_name = track_name[:40] + "..."
+            title_button['text'] = track_name
+            #artists
+            artists_button['text'] = artists
+            #albums
+            if (album == ""):
+                album_button['text'] = ""
+            else:
+                album_button['text'] = album + " - " + year
         #increase counter
         time.sleep(1)
         counter += 1
@@ -79,8 +84,8 @@ def display_song():
     image_frame = tk.Label(master=root, image = tk_image, height=400, width = 400, bg="black")
     image_frame.pack()
     #Song Title
-    if (len(track_name) > 50):
-        track_name = track_name[:50] + "..."
+    if (len(track_name) > 40):
+        track_name = track_name[:40] + "..."
     title_font = font.Font(family='Copperplate Gothic Bold', size=35, weight='normal')
     title_button = tk.Button(master=root, text=(track_name), bg='black', height=0, activebackground='black', bd=-2, state='disabled', disabledforeground="white")
     title_button['font'] = title_font
