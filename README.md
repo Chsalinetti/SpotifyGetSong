@@ -2,6 +2,10 @@
 
 Spotify Get Song displays information about a Spotify user's currently playing song in a Tkinter GUI.
 
+Charlie Salinetti
+@sultanofswing
+2021
+
 ## GitHub Page
 
 Spotify Get Song can be found [here](https://github.com/Chsalinetti/SpotifyGetSong).
