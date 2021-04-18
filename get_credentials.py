@@ -10,7 +10,7 @@ def get_credentials():
     #Open website
     webbrowser.open('https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +'&response_type=code&redirect_uri=https://api.spotify.com/v1/me/player/currently-playing&scope=user-read-currently-playing', new=1)
     #get url from site to get code
-    cred_url = input("Enter URL: ")
+    cred_url = input("Enter URL of opened website: ")
     tokens = cred_url.split('=')
     code = tokens[1]
     #get credentials
