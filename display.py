@@ -72,7 +72,7 @@ def display_song():
     root.configure(bg='black')
     #top border
     line_font = font.Font(family='Segoe', size=20, weight='normal')
-    line_button = tk.Button(master=root, text=" ", bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    line_button = tk.Button(master=root, text=" ", bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     line_button['font'] = line_font
     line_button.pack(fill=tk.X)
     #Album Art
@@ -81,28 +81,28 @@ def display_song():
     pil_image = Image.open(data_stream)
     pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
     tk_image = ImageTk.PhotoImage(pil_image)
-    image_frame = tk.Label(master=root, image = tk_image, height=400, width = 400, bg="black")
+    image_frame = tk.Label(master=root, image = tk_image, height=400, width = 400, bg="black", borderwidth=0, highlightbackground="black")
     image_frame.pack()
     #Song Title
     if (len(track_name) > 40):
         track_name = track_name[:40] + "..."
     title_font = font.Font(family='Copperplate Gothic Bold', size=35, weight='normal')
-    title_button = tk.Button(master=root, text=(track_name), bg='black', height=0, activebackground='black', bd=-2, state='disabled', disabledforeground="white")
+    title_button = tk.Button(master=root, text=(track_name), bg='black', height=0, activebackground='black', bd=-2, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     title_button['font'] = title_font
     title_button.pack(fill=tk.X)
     #Underscore
     line_font = font.Font(family='Segoe', size=10, weight='normal')
-    line_button = tk.Button(master=root, text="──────────────────────────────", bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    line_button = tk.Button(master=root, text="──────────────────────────────", bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     line_button['font'] = line_font
     line_button.pack(fill=tk.X)
     #Artist
     artists_font = font.Font(family='Bahnschrift SemiLight SemiCondensed', size=25, weight='normal')
-    artists_button = tk.Button(master=root, text=artists, bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    artists_button = tk.Button(master=root, text=artists, bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     artists_button['font'] = artists_font
     artists_button.pack(fill=tk.X)
     #Album - Years
     album_font = font.Font(family='Bahnschrift Light SemiCondensed', size=10, weight='normal')
-    album_button = tk.Button(master=root, text=(album + " - " + year), bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white")
+    album_button = tk.Button(master=root, text=(album + " - " + year), bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
     #create thread to update display constatly
