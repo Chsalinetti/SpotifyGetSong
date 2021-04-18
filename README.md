@@ -1,6 +1,6 @@
 # Spotify Get Song
 
-Foobar is a Python library for dealing with word pluralization.
+Spotify Get Song displays information about a Spotify user's currently playing song in a Tkinter GUI.
 
 ## GitHub Page
 
@@ -8,10 +8,10 @@ Spotify Get Song can be found [here](https://github.com/Chsalinetti/SpotifyGetSo
 
 ## Usage
 
-Spotify Get Song authenticates the user through Spotify's API, which opens a webpage where the user
-approves the program, and is directed to a website. When the link to the website is copied into the
-Python program, a code is recieved and sent back to Spotify. The JSON response is parced to recieve
-a user token, which allows requests to be made about the user's currently playing song.
+Spotify Get Song authenticates the user through Spotify's API, which opens a webpage where the user approves the program,
+and is directed to a website. When the link to the website is copied into the Python program, a code is recieved and sent
+back to Spotify. The JSON response is parced to recieve a user token, which allows requests to be made about the user's
+currently playing song.
 
 Using the Python GUI Tkinter, a display is created. Using more API requests, the program is able recieve information about
 the current song being played and update the user's token which will expire after an hour. Using threading, the display is
