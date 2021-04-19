@@ -1,9 +1,10 @@
 from display import display_song
 
 def main():
-    print("\nSpotify Current Song Player")
+    print("\nImproved Spotify Current Song Display")
     print("\nCharlie Salinetti")
     print("@sultanofswing")
+    print("https://github.com/Chsalinetti/SpotifyGetSong")
     print("2021\n")
     display_song()
 
