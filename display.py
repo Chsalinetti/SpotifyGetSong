@@ -25,10 +25,13 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
                 url='https://accounts.spotify.com/api/token',
                 data = request_body_params
             )
-            resp_json = response.json()
-            access_token = resp_json['access_token']
-            counter = 0;
-            print("Token Refreshed!")
+            try :
+                resp_json = response.json()
+                access_token = resp_json['access_token']
+                counter = 0;
+                print("Token Refreshed!")
+            except :
+                print("Unable to refresh!")
         #get current info
         current_track_name = title_button['text']
         current_artist = artists_button['text']
