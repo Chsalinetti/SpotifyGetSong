@@ -1,6 +1,6 @@
-# Spotify Get Song
+# Improved Spotify Current Song Display
 
-Spotify Get Song displays information about a Spotify user's currently playing song in a Tkinter GUI.
+This program displays information about a Spotify user's currently playing song in a Tkinter GUI.
 
 Charlie Salinetti
 @sultanofswing
@@ -8,11 +8,11 @@ Charlie Salinetti
 
 ## GitHub Page
 
-Spotify Get Song can be found [here](https://github.com/Chsalinetti/SpotifyGetSong).
+The program can be found [here](https://github.com/Chsalinetti/SpotifyGetSong).
 
 ## Usage
 
-Spotify Get Song authenticates the user through Spotify's API, which opens a webpage where the user approves the program,
+The program authenticates the user through Spotify's API, which opens a webpage where the user approves the program,
 and is directed to a website. When the link to the website is copied into the Python program, a code is recieved and sent
 back to Spotify. The JSON response is parced to recieve a user token, which allows requests to be made about the user's
 currently playing song.
@@ -26,14 +26,14 @@ or the program temorarily loses internet connection.
 A Raspberry PI can be used to have this program displayed by itself on a monitor.
 
 ## Implementation
-Spotify Get Song requires the following libraries to be impemented:
+This program requires the following libraries to be impemented:
 
 ```bash
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade Pillow
 ```
 
-Spotify Get Song requires a client_id.py file with the following implementation:
+This program requires a client_id.py file with the following implementation:
 
 ```python
 import requests
@@ -41,3 +41,5 @@ import requests
 CLIENT_ID = '41da94c0f5f94c14927a75b502c9d21d'
 CLIENT_SECRET = '<client secret>'
 ```
+
+Email me at chsalinetti@gmail.com if you would like the program for personal use and need the CLIENT_SECRET.
