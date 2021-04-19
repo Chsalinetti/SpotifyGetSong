@@ -13,7 +13,7 @@ from threading import Thread
 '''
 Updates the display with new song information
 '''
-def display_update(root,image_frame, title_button, artists_button, album_button, access_token, url, refresh_token, counter):
+def display_update(root,image_frame, title_button, line_button, artists_button, album_button, access_token, url, refresh_token, counter):
     #loop forever
     while (True):
         #run counter, after 1500 seconds token will refresh. Token expires after 3600 seconds.
@@ -28,7 +28,7 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
             try :
                 resp_json = response.json()
                 access_token = resp_json['access_token']
-                counter = 0;
+                counter = 0
                 print("Token Refreshed!")
             except :
                 print("Unable to refresh!")
@@ -37,7 +37,7 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
         current_artist = artists_button['text']
         current_album = album_button['text']
         #get current track info
-        track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
+        track_name, artists, album, year, artwork_url, line = get_current_track(access_token, url)
         #check to see if update is needed
         if (current_track_name != track_name or current_artist != artists or current_album != (album + " - " + year)):
             #image
@@ -51,6 +51,8 @@ def display_update(root,image_frame, title_button, artists_button, album_button,
             if (len(track_name) > 40):
                 track_name = track_name[:40] + "..."
             title_button['text'] = track_name
+            #line
+            line_button['text'] = line
             #artists
             artists_button['text'] = artists
             #albums
@@ -68,7 +70,7 @@ def display_song():
     #get credentials
     access_token, url, refresh_token = get_credentials()
     #get current song
-    track_name, artists, album, year, artwork_url = get_current_track(access_token, url)
+    track_name, artists, album, year, artwork_url, line = get_current_track(access_token, url)
     #Initilize Tkinter
     root = tk.Tk()
     root.attributes("-fullscreen", True)
@@ -95,7 +97,7 @@ def display_song():
     title_button.pack(fill=tk.X)
     #Underscore
     line_font = font.Font(family='Segoe', size=10, weight='normal')
-    line_button = tk.Button(master=root, text="──────────────────────────────", bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
+    line_button = tk.Button(master=root, text=line, bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     line_button['font'] = line_font
     line_button.pack(fill=tk.X)
     #Artist
@@ -109,5 +111,5 @@ def display_song():
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
     #create thread to update display constatly
-    Thread(target=display_update, args=(root, image_frame ,title_button, artists_button, album_button, access_token, url, refresh_token, 0)).start()
+    Thread(target=display_update, args=(root, image_frame ,title_button, line_button, artists_button, album_button, access_token, url, refresh_token, 0)).start()
     root.mainloop()

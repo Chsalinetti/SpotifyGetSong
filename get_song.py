@@ -22,12 +22,15 @@ def get_current_track(access_token, url):
         date = date.split("-")
         year = date[0]
         artwork = resp_json['item']['album']['images'][0]['url']
+        line = "──────────────────────────────"
     except:
         #if current song can't be found, displays blank info
-        track_name = "No Song Playing"
+        track_name = ""
         artists = ""
         album = ""
         year = ""
-        artwork = "https://static.wikia.nocookie.net/impracticaljokers/images/d/d2/Sal.png/revision/latest/scale-to-width-down/250?cb=20190604013345"
+        #artwork = "https://static.wikia.nocookie.net/impracticaljokers/images/d/d2/Sal.png/revision/latest/scale-to-width-down/250?cb=20190604013345"
+        artwork = "https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png"
+        line = ""
 
-    return track_name, artists, album, year, artwork
+    return track_name, artists, album, year, artwork, line
