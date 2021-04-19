@@ -106,8 +106,14 @@ def display_song():
     artists_button['font'] = artists_font
     artists_button.pack(fill=tk.X)
     #Album - Years
+    #blank checker
+    if (album == ""):
+            album_button_text = ""
+    else:
+        album_button_text = album + " - " + year
+
     album_font = font.Font(family='Bahnschrift Light SemiCondensed', size=10, weight='normal')
-    album_button = tk.Button(master=root, text=(album + " - " + year), bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
+    album_button = tk.Button(master=root, text=(album_button_text), bg='black', height=0, activebackground='black', bd=0, state='disabled', disabledforeground="white", borderwidth=0, highlightbackground="black")
     album_button['font'] = album_font
     album_button.pack(fill=tk.X)
     #create thread to update display constatly
