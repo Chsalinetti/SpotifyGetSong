@@ -41,12 +41,15 @@ def display_update(root,image_frame, title_button, line_button, artists_button, 
         #check to see if update is needed
         if (current_track_name != track_name or current_artist != artists or current_album != (album + " - " + year)):
             #image
-            image_bytes = urlopen(artwork_url).read()
-            data_stream = io.BytesIO(image_bytes)
-            pil_image = Image.open(data_stream)
-            pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
-            tk_image = ImageTk.PhotoImage(pil_image)
-            image_frame['image'] = tk_image
+            try:
+                image_bytes = urlopen(artwork_url).read()
+                data_stream = io.BytesIO(image_bytes)
+                pil_image = Image.open(data_stream)
+                pil_image = pil_image.resize((400, 400), Image.ANTIALIAS)
+                tk_image = ImageTk.PhotoImage(pil_image)
+                image_frame['image'] = tk_image
+            except:
+                print ("Image Error!")
             #title
             if (len(track_name) > 40):
                 track_name = track_name[:40] + "..."
