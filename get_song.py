@@ -5,14 +5,15 @@ import json
 Returns information on the current playing track given the access token and url
 '''
 def get_current_track(access_token, url):
-    #get response from Spotify
-    response = requests.get(
-        url,
-        headers={
-            "Authorization" : f"Bearer {access_token}"
-        }
-    )
+    
     try:
+        #get response from Spotify
+        response = requests.get(
+            url,
+            headers={
+                "Authorization" : f"Bearer {access_token}"
+            }
+        )
         #try to get info for current song
         resp_json = response.json()
         track_name = resp_json['item']['name']

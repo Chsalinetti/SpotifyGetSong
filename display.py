@@ -19,13 +19,13 @@ def display_update(root,image_frame, title_button, line_button, artists_button, 
         #run counter, after 1500 seconds token will refresh. Token expires after 3600 seconds.
         if (counter > 1500):
             print("Refreshing Token...")
-            #refresh tokens
-            request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
-            response = requests.post(
-                url='https://accounts.spotify.com/api/token',
-                data = request_body_params
-            )
             try :
+                #refresh tokens
+                request_body_params = {'grant_type':'refresh_token', 'refresh_token' : refresh_token, 'client_id' : CLIENT_ID , 'client_secret' : CLIENT_SECRET}
+                response = requests.post(
+                    url='https://accounts.spotify.com/api/token',
+                    data = request_body_params
+                )
                 resp_json = response.json()
                 access_token = resp_json['access_token']
                 counter = 0
