@@ -17,6 +17,8 @@ def get_current_track(access_token, url):
         #try to get info for current song
         resp_json = response.json()
         track_name = resp_json['item']['name']
+        track_name = track_name.split(" - ")
+        track_name = track_name[0]
         artists = resp_json['item']['artists'][0]['name']
         album = resp_json['item']['album']['name']
         date = resp_json['item']['album']['release_date']
